@@ -1,0 +1,152 @@
+# 定义通讯录类
+class Contact:
+    def __init__(self, name, gender, age, major, address, phone, email):
+        self.name = name
+        self.gender = gender
+        self.age = age
+        self.major = major
+        self.address = address
+        self.phone = phone
+        self.email = email
+
+# 定义通讯录列表
+contact_list = []
+
+# 添加记录
+def add_contact():
+    name = input("请输入姓名：")
+    gender = input("请输入性别：")
+    age = input("请输入年龄：")
+    major = input("请输入专业：")
+    address = input("请输入地址：")
+    phone = input("请输入电话：")
+    email = input("请输入邮箱：")
+    contact = Contact(name, gender, age, major, address, phone, email)
+    contact_list.append(contact)
+    print("添加成功！")
+
+# 修改记录
+def modify_contact():
+    name = input("请输入要修改的联系人姓名：")
+    for contact in contact_list:
+        if contact.name == name:
+            contact.gender = input("请输入新的性别：")
+            contact.age = input("请输入新的年龄：")
+            contact.major = input("请输入新的专业：")
+            contact.address = input("请输入新的地址：")
+            contact.phone = input("请输入新的电话：")
+            contact.email = input("请输入新的邮箱：")
+            print("修改成功！")
+            return
+    print("未找到该联系人！")
+
+# 删除记录
+def delete_contact():
+    name = input("请输入要删除的联系人姓名：")
+    for contact in contact_list:
+        if contact.name == name:
+            contact_list.remove(contact)
+            print("删除成功！")
+            return
+    print("未找到该联系人！")
+
+# 按照不同项目进行查找
+def search_contact():
+    search_type = input("请输入要查找的项目（姓名/性别/年龄/专业/地址/电话/邮箱）：")
+    keyword = input("请输入关键字：")
+    result = []
+    for contact in contact_list:
+        if search_type == "姓名" and contact.name == keyword:
+            result.append(contact)
+        elif search_type == "性别" and contact.gender == keyword:
+            result.append(contact)
+        elif search_type == "年龄" and contact.age == keyword:
+            result.append(contact)
+        elif search_type == "专业" and contact.major == keyword:
+            result.append(contact)
+        elif search_type == "地址" and contact.address == keyword:
+            result.append(contact)
+        elif search_type == "电话" and contact.phone == keyword:
+            result.append(contact)
+        elif search_type == "邮箱" and contact.email == keyword:
+            result.append(contact)
+    if len(result) == 0:
+        print("未找到符合条件的联系人！")
+    else:
+        for contact in result:
+            print("姓名：{}，性别：{}，年龄：{}，专业：{}，地址：{}，电话：{}，邮箱：{}".format(contact.name, contact.gender, contact.age, contact.major, contact.address, contact.phone, contact.email))
+
+# 按照不同项目排序
+def sort_contact():
+    sort_type = input("请输入要排序的项目（姓名/性别/年龄/专业/地址/电话/邮箱）：")
+    if sort_type == "姓名":
+        contact_list.sort(key=lambda contact: contact.name)
+    elif sort_type == "性别":
+        contact_list.sort(key=lambda contact: contact.gender)
+    elif sort_type == "年龄":
+        contact_list.sort(key=lambda contact: contact.age)
+    elif sort_type == "专业":
+        contact_list.sort(key=lambda contact: contact.major)
+    elif sort_type == "地址":
+        contact_list.sort(key=lambda contact: contact.address)
+    elif sort_type == "电话":
+        contact_list.sort(key=lambda contact: contact.phone)
+    elif sort_type == "邮箱":
+        contact_list.sort(key=lambda contact: contact.email)
+    else:
+        print("输入有误！")
+        return
+    for contact in contact_list:
+        print("姓名：{}，性别：{}，年龄：{}，专业：{}，地址：{}，电话：{}，邮箱：{}".format(contact.name, contact.gender, contact.age, contact.major, contact.address, contact.phone, contact.email))
+
+# 保存到文件
+def save_contact():
+    with open("contact.txt", "w") as f:
+        for contact in contact_list:
+            f.write("{},{},{},{},{},{},{}\n".format(contact.name, contact.gender, contact.age, contact.major, contact.address, contact.phone, contact.email))
+    print("保存成功！")
+
+# 导入文件
+def load_contact():
+    with open("contact.txt", "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            fields = line.strip().split(",")
+            contact = Contact(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6])
+            contact_list.append(contact)
+    print("导入成功！")
+
+# 主函数
+def main():
+    while True:
+        print("请选择操作：")
+        print("1. 添加联系人")
+        print("2. 修改联系人")
+        print("3. 删除联系人")
+        print("4. 查找联系人")
+        print("5. 排序联系人")
+        print("6. 保存联系人")
+        print("7. 导入联系人")
+        print("8. 退出程序")
+        choice = input()
+        if choice == "1":
+            add_contact()
+        elif choice == "2":
+            modify_contact()
+        elif choice == "3":
+            delete_contact()
+        elif choice == "4":
+            search_contact()
+        elif choice == "5":
+            sort_contact()
+        elif choice == "6":
+            save_contact()
+        elif choice == "7":
+            load_contact()
+        elif choice == "8":
+            break
+        else:
+            print("输入有误，请重新输入！")
+
+if __name__ == '__main__':
+    main()
