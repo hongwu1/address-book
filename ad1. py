@@ -1,3 +1,4 @@
+
 # 定义通讯录类
 class Contact:
     def __init__(self, name, gender, age, major, address, phone, email):
@@ -106,15 +107,7 @@ def save_contact():
             f.write("{},{},{},{},{},{},{}\n".format(contact.name, contact.gender, contact.age, contact.major, contact.address, contact.phone, contact.email))
     print("保存成功！")
 
-# 导入文件
-def load_contact():
-    with open("contact.txt", "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            fields = line.strip().split(",")
-            contact = Contact(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6])
-            contact_list.append(contact)
-    print("导入成功！")
+
 
 # 主函数
 def main():
@@ -126,8 +119,7 @@ def main():
         print("4. 查找联系人")
         print("5. 排序联系人")
         print("6. 保存联系人")
-        print("7. 导入联系人")
-        print("8. 退出程序")
+        print("7. 退出程序")
         choice = input()
         if choice == "1":
             add_contact()
@@ -142,8 +134,6 @@ def main():
         elif choice == "6":
             save_contact()
         elif choice == "7":
-            load_contact()
-        elif choice == "8":
             break
         else:
             print("输入有误，请重新输入！")
